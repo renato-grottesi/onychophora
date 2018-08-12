@@ -10,6 +10,4 @@ next_level = 2
 
 tile_data = PoolIntArray( 917518, 4, 0 )
 
-[connection signal="lose" from="Worm" to="." method="_on_Worm_lose"]
-
 
