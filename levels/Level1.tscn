@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://levels/Level0.tscn" type="PackedScene" id=1]
+
+[node name="Level1" instance=ExtResource( 1 )]
+
+next_level = 2
+
+[node name="Resources" parent="Worm" index="2"]
+
+tile_data = PoolIntArray( 917518, 4, 0 )
+
+[connection signal="lose" from="Worm" to="." method="_on_Worm_lose"]
+
+

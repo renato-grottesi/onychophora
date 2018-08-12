@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://tileset/door.png" type="Texture" id=1]
+[ext_resource path="res://tileset/rock.png" type="Texture" id=2]
+[ext_resource path="res://tileset/soil.png" type="Texture" id=3]
+[ext_resource path="res://ui/worm_anim1.png" type="Texture" id=4]
+[ext_resource path="res://tileset/food.png" type="Texture" id=5]
+[ext_resource path="res://tileset/mold.png" type="Texture" id=6]
+
+[node name="Node" type="Node"]
+
+[node name="door" type="Sprite" parent="." index="0"]
+
+position = Vector2( 24, 12 )
+texture = ExtResource( 1 )
+
+[node name="rock" type="Sprite" parent="." index="1"]
+
+position = Vector2( 4, 12 )
+texture = ExtResource( 2 )
+
+[node name="earth" type="Sprite" parent="." index="2"]
+
+position = Vector2( 4, 16 )
+texture = ExtResource( 3 )
+
+[node name="tail" type="Sprite" parent="." index="3"]
+
+position = Vector2( 8, 12 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 4, 4 )
+_sections_unfolded = [ "Region" ]
+
+[node name="body" type="Sprite" parent="." index="4"]
+
+position = Vector2( 12, 12 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 4, 0, 4, 4 )
+_sections_unfolded = [ "Region" ]
+
+[node name="head" type="Sprite" parent="." index="5"]
+
+position = Vector2( 16, 12 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 12, 0, 4, 4 )
+_sections_unfolded = [ "Region" ]
+
+[node name="food" type="Sprite" parent="." index="6"]
+
+position = Vector2( 8, 20 )
+texture = ExtResource( 5 )
+
+[node name="mold" type="Sprite" parent="." index="7"]
+
+position = Vector2( 12, 20 )
+texture = ExtResource( 6 )
+
+

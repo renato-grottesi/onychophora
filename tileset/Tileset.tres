@@ -1,0 +1,102 @@
+[gd_resource type="TileSet" load_steps=7 format=2]
+
+[ext_resource path="res://tileset/rock.png" type="Texture" id=1]
+[ext_resource path="res://ui/worm_anim1.png" type="Texture" id=2]
+[ext_resource path="res://tileset/door.png" type="Texture" id=3]
+[ext_resource path="res://tileset/soil.png" type="Texture" id=4]
+[ext_resource path="res://tileset/food.png" type="Texture" id=5]
+[ext_resource path="res://tileset/mold.png" type="Texture" id=6]
+
+[resource]
+
+0/name = "rock"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 4, 4 )
+0/is_autotile = false
+0/occluder_offset = Vector2( 2, 2 )
+0/navigation_offset = Vector2( 2, 2 )
+0/shapes = [  ]
+1/name = "tail"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 4, 4 )
+1/is_autotile = false
+1/occluder_offset = Vector2( 2, 2 )
+1/navigation_offset = Vector2( 2, 2 )
+1/shapes = [  ]
+2/name = "body"
+2/texture = ExtResource( 2 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 4, 0, 4, 4 )
+2/is_autotile = false
+2/occluder_offset = Vector2( 2, 2 )
+2/navigation_offset = Vector2( 2, 2 )
+2/shapes = [  ]
+3/name = "head"
+3/texture = ExtResource( 2 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 12, 0, 4, 4 )
+3/is_autotile = false
+3/occluder_offset = Vector2( 2, 2 )
+3/navigation_offset = Vector2( 2, 2 )
+3/shapes = [  ]
+4/name = "door"
+4/texture = ExtResource( 3 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 0, 0, 4, 4 )
+4/is_autotile = false
+4/occluder_offset = Vector2( 2, 2 )
+4/navigation_offset = Vector2( 2, 2 )
+4/shapes = [  ]
+5/name = "soil"
+5/texture = ExtResource( 4 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 0, 0, 4, 4 )
+5/is_autotile = false
+5/occluder_offset = Vector2( 2, 2 )
+5/navigation_offset = Vector2( 2, 2 )
+5/shapes = [  ]
+6/name = "door"
+6/texture = ExtResource( 3 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 0, 0, 4, 4 )
+6/is_autotile = false
+6/occluder_offset = Vector2( 2, 2 )
+6/navigation_offset = Vector2( 2, 2 )
+6/shapes = [  ]
+7/name = "food"
+7/texture = ExtResource( 5 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 0, 0, 4, 4 )
+7/is_autotile = false
+7/occluder_offset = Vector2( 2, 2 )
+7/navigation_offset = Vector2( 2, 2 )
+7/shapes = [  ]
+8/name = "earth"
+8/texture = ExtResource( 4 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 0, 0, 4, 4 )
+8/is_autotile = false
+8/occluder_offset = Vector2( 2, 2 )
+8/navigation_offset = Vector2( 2, 2 )
+8/shapes = [  ]
+9/name = "mold"
+9/texture = ExtResource( 6 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 0, 4, 4 )
+9/is_autotile = false
+9/occluder_offset = Vector2( 2, 2 )
+9/navigation_offset = Vector2( 2, 2 )
+9/shapes = [  ]
+
