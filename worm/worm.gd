@@ -37,13 +37,13 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed:
 			var arrow = Vector2(0, 0)
-			if event.scancode == KEY_LEFT:
+			if event.scancode == KEY_LEFT or event.scancode == KEY_A:
 				arrow = Vector2(-1, 0)
-			if event.scancode == KEY_RIGHT:
+			if event.scancode == KEY_RIGHT or event.scancode == KEY_D:
 				arrow = Vector2(1, 0)
-			if event.scancode == KEY_UP:
+			if event.scancode == KEY_UP or event.scancode == KEY_W:
 				arrow = Vector2(0, -1)
-			if event.scancode == KEY_DOWN:
+			if event.scancode == KEY_DOWN or event.scancode == KEY_S:
 				arrow = Vector2(0, 1)
 			if arrow.length() > 0.0:
 				var new_head = sections.back() + arrow
