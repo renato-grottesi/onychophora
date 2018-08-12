@@ -33,6 +33,18 @@ func _ready():
 	dir_lut.append([2,1,5,6])
 	for i in range(1, 16): fall()
 
+func set_sections(new_sections):
+	sections.clear()
+	for s in new_sections:
+		sections.append(s)
+	draw()
+
+func set_sections_from_head(h):
+	sections.clear()
+	for s in range(0, 3):
+		sections.append(h+Vector2(s, 0))
+	draw()
+
 func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed:

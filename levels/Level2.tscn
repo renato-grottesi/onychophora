@@ -6,6 +6,7 @@
 [node name="Level2" instance=ExtResource( 1 )]
 
 next_level = 3
+head = Vector2( 1, 14 )
 
 [node name="Map" parent="Worm" index="1"]
 
