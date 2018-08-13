@@ -43,7 +43,7 @@ func set_sections_from_head(h):
 	sections.clear()
 	for s in range(0, 3):
 		sections.append(h+Vector2(s, 0))
-	draw()
+	fall()
 
 func _unhandled_input(event):
 	if event is InputEventKey:
