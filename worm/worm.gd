@@ -6,6 +6,7 @@ signal lose
 var sections = [Vector2(1,1), Vector2(2,1), Vector2(3,1)]
 var tail
 var body
+var join
 var head
 var soil
 var rock
@@ -16,12 +17,10 @@ var stable = 128
 
 var dead = false
 
-enum dir {L=0, R=1, U=2, D=3}
-var dir_lut = []
-
 func _ready():
 	tail = $Map.tile_set.find_tile_by_name("tail")
 	body = $Map.tile_set.find_tile_by_name("body")
+	join = $Map.tile_set.find_tile_by_name("join")
 	head = $Map.tile_set.find_tile_by_name("head")
 	soil = $Map.tile_set.find_tile_by_name("soil")
 	rock = $Map.tile_set.find_tile_by_name("rock")
@@ -29,10 +28,6 @@ func _ready():
 	food = $Map.tile_set.find_tile_by_name("food")
 	mold = $Map.tile_set.find_tile_by_name("mold")
 	
-	dir_lut.append([2,1,5,6])
-	dir_lut.append([2,1,5,6])
-	dir_lut.append([2,1,5,6])
-	dir_lut.append([2,1,5,6])
 	for i in range(1, 16): fall()
 
 func set_sections(new_sections):
@@ -135,23 +130,39 @@ func eat_soil(p):
 		for c in $Map.get_used_cells_by_id(stable):
 			$Map.set_cellv(c, soil)
 
+enum dir {L=0, R=1, U=2, D=3}
+
 func draw():
+	var dir_lut = []
+	dir_lut.append([1,0,5,6])
+	dir_lut.append([1,0,5,6])
+	dir_lut.append([1,0,5,6])
+	dir_lut.append([1,0,5,6])
 	var old_dir = dir.L
 	var new_dir = dir.L
 	var old_point = sections[0]+(sections[1]-sections[0])
 	for c in $body.get_used_cells():
 		$body.set_cellv(c, -1)
 	for s in sections:
-		if s.x > old_point.x: new_dir = dir.R
-		if s.x < old_point.x: new_dir = dir.L
-		if s.y > old_point.y: new_dir = dir.D
-		if s.y < old_point.y: new_dir = dir.U
+		if s.x > old_point.x: new_dir = dir.L
+		if s.x < old_point.x: new_dir = dir.R
+		if s.y > old_point.y: new_dir = dir.U
+		if s.y < old_point.y: new_dir = dir.D
 		var tile = body
-		if s == sections.front() : tile = tail
-		if s == sections.back() : tile = head
-		$body.set_cellv(s, tile, (dir_lut[old_dir][new_dir]&1)>0, (dir_lut[old_dir][new_dir]&2)>0, (dir_lut[old_dir][new_dir]&4)>0) 
+		var flip_x = (dir_lut[old_dir][new_dir]&1)>0
+		var flip_y = (dir_lut[old_dir][new_dir]&2)>0
+		var transp = (dir_lut[old_dir][new_dir]&4)>0
+		$body.set_cellv(s, tile, flip_x, flip_y, transp)
 		old_point=s
 		old_dir=new_dir
+	# tail
+	var s_tail = sections[0];
+	var s_tail_1 = sections[1]
+	$body.set_cellv(s_tail, tail, s_tail_1.x<s_tail.x, s_tail_1.y<s_tail.y, s_tail_1.y!=s_tail.y)
+	# head
+	var s_head = sections[sections.size()-1];
+	var s_head_1 = sections[sections.size()-2]
+	$body.set_cellv(s_head, head, s_head_1.x>s_head.x, s_head_1.y>s_head.y, s_head_1.y!=s_head.y)
 
 func fall():
 	if not on_ground():

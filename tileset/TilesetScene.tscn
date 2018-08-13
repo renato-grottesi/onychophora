@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://tileset/door.png" type="Texture" id=1]
 [ext_resource path="res://tileset/rock.png" type="Texture" id=2]
 [ext_resource path="res://tileset/soil.png" type="Texture" id=3]
-[ext_resource path="res://ui/worm_anim1.png" type="Texture" id=4]
-[ext_resource path="res://tileset/food.png" type="Texture" id=5]
-[ext_resource path="res://tileset/mold.png" type="Texture" id=6]
+[ext_resource path="res://worm/tail.png" type="Texture" id=4]
+[ext_resource path="res://worm/body.png" type="Texture" id=5]
+[ext_resource path="res://worm/head.png" type="Texture" id=6]
+[ext_resource path="res://tileset/food.png" type="Texture" id=7]
+[ext_resource path="res://tileset/mold.png" type="Texture" id=8]
+[ext_resource path="res://worm/join.png" type="Texture" id=9]
 
 [node name="Node" type="Node"]
 
@@ -19,7 +22,7 @@ texture = ExtResource( 1 )
 position = Vector2( 4, 12 )
 texture = ExtResource( 2 )
 
-[node name="earth" type="Sprite" parent="." index="2"]
+[node name="soil" type="Sprite" parent="." index="2"]
 
 position = Vector2( 4, 16 )
 texture = ExtResource( 3 )
@@ -28,34 +31,36 @@ texture = ExtResource( 3 )
 
 position = Vector2( 8, 12 )
 texture = ExtResource( 4 )
-region_enabled = true
 region_rect = Rect2( 0, 0, 4, 4 )
 _sections_unfolded = [ "Region" ]
 
 [node name="body" type="Sprite" parent="." index="4"]
 
 position = Vector2( 12, 12 )
-texture = ExtResource( 4 )
-region_enabled = true
+texture = ExtResource( 5 )
 region_rect = Rect2( 4, 0, 4, 4 )
 _sections_unfolded = [ "Region" ]
 
 [node name="head" type="Sprite" parent="." index="5"]
 
 position = Vector2( 16, 12 )
-texture = ExtResource( 4 )
-region_enabled = true
+texture = ExtResource( 6 )
 region_rect = Rect2( 12, 0, 4, 4 )
 _sections_unfolded = [ "Region" ]
 
 [node name="food" type="Sprite" parent="." index="6"]
 
 position = Vector2( 8, 20 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 
 [node name="mold" type="Sprite" parent="." index="7"]
 
 position = Vector2( 12, 20 )
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
+
+[node name="join" type="Sprite" parent="." index="8"]
+
+position = Vector2( 28.9128, 28.3368 )
+texture = ExtResource( 9 )
 
 
