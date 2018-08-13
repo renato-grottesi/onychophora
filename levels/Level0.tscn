@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://levels/Level0.gd" type="Script" id=1]
 [ext_resource path="res://worm/Worm.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tileset/Tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://ui/font_big.tres" type="DynamicFont" id=4]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 next_level = 0
+head = Vector2( 3, 1 )
 
 [node name="Worm" parent="." index="0" instance=ExtResource( 2 )]
 
@@ -52,6 +54,30 @@ occluder_light_mask = 1
 format = 1
 tile_data = PoolIntArray(  )
 _sections_unfolded = [ "Cell" ]
+
+[node name="Retry" type="Label" parent="." index="1"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 11.0
+margin_top = 45.0
+margin_right = 54.0
+margin_bottom = 55.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 4 )
+text = "R to retry"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Theme", "Visibility", "custom_fonts" ]
 
 [connection signal="lose" from="Worm" to="." method="_on_Worm_lose"]
 

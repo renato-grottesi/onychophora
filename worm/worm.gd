@@ -14,6 +14,8 @@ var food
 var mold
 var stable = 128
 
+var dead = false
+
 enum dir {L=0, R=1, U=2, D=3}
 var dir_lut = []
 
@@ -46,6 +48,8 @@ func set_sections_from_head(h):
 	fall()
 
 func _unhandled_input(event):
+	if dead:
+		return
 	if event is InputEventKey:
 		if event.pressed:
 			var arrow = Vector2(0, 0)
@@ -80,6 +84,7 @@ func check_stuck():
 	var h = sections.back()
 	if not(can_move_to(h+Vector2(1, 0))) and not(can_move_to(h+Vector2(-1, 0))):
 		if not(can_move_to(h+Vector2(0, 1))) and not(can_move_to(h+Vector2(0, -1))):
+			dead = true
 			emit_signal("lose")
 			return
 
@@ -87,6 +92,7 @@ func check_buried():
 	for c in $Map.get_used_cells_by_id(soil):
 		for s in sections:
 			if c == s:
+				dead = true
 				emit_signal("lose")
 				return
 
