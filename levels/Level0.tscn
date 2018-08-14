@@ -5,7 +5,7 @@
 [ext_resource path="res://tileset/Tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://ui/font_big.tres" type="DynamicFont" id=4]
 
-[node name="Level" type="Node2D" index="0"]
+[node name="Level" type="Node2D"]
 
 script = ExtResource( 1 )
 next_level = 0

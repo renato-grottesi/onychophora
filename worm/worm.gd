@@ -133,28 +133,44 @@ func eat_soil(p):
 enum dir {L=0, R=1, U=2, D=3}
 
 func draw():
-	var dir_lut = []
-	dir_lut.append([1,0,5,6])
-	dir_lut.append([1,0,5,6])
-	dir_lut.append([1,0,5,6])
-	dir_lut.append([1,0,5,6])
-	var old_dir = dir.L
-	var new_dir = dir.L
-	var old_point = sections[0]+(sections[1]-sections[0])
 	for c in $body.get_used_cells():
 		$body.set_cellv(c, -1)
-	for s in sections:
-		if s.x > old_point.x: new_dir = dir.L
-		if s.x < old_point.x: new_dir = dir.R
-		if s.y > old_point.y: new_dir = dir.U
-		if s.y < old_point.y: new_dir = dir.D
-		var tile = body
-		var flip_x = (dir_lut[old_dir][new_dir]&1)>0
-		var flip_y = (dir_lut[old_dir][new_dir]&2)>0
-		var transp = (dir_lut[old_dir][new_dir]&4)>0
-		$body.set_cellv(s, tile, flip_x, flip_y, transp)
-		old_point=s
-		old_dir=new_dir
+	for s in range(0, sections.size()-1):
+		var s_c = sections[s]
+		if s_c != sections.back() and s_c != sections.front():
+			var s_b = sections[s-1]
+			var s_a = sections[s+1]
+			if s_b.x == s_c.x and s_c.x == s_a.x:
+				# horizontal section
+				$body.set_cellv(s_c, body, s_b.x<s_a.x, false, true)
+			elif s_b.y == s_c.y and s_c.y == s_a.y:
+				# vertical section
+				$body.set_cellv(s_c, body, false, s_b.y<s_a.y, false)
+			# L sections
+			elif s_b.x < s_c.x and s_c.y < s_a.y:
+				# previous point on left and next below
+				$body.set_cellv(s_c, join, true, false, true)
+			elif s_b.x < s_c.x and s_c.y > s_a.y:
+				# previous point on left and next above
+				$body.set_cellv(s_c, join, true, true, true)
+			elif s_b.x > s_c.x and s_c.y < s_a.y:
+				# previous point on right and next below
+				$body.set_cellv(s_c, join, true, true, false)
+			elif s_b.x > s_c.x and s_c.y > s_a.y:
+				# previous point on right and next below
+				$body.set_cellv(s_c, join, false, true, true)
+			elif s_b.y > s_c.y and s_c.x > s_a.x:
+				# previous point below and next left
+				$body.set_cellv(s_c, join, true, false, true)
+			elif s_b.y > s_c.y and s_c.x < s_a.x:
+				# previous point below and next right
+				$body.set_cellv(s_c, join, false, false, true)
+			elif s_b.y < s_c.y and s_c.x > s_a.x:
+				# previous point above and next left
+				$body.set_cellv(s_c, join, false, false, true)
+			elif s_b.y < s_c.y and s_c.x < s_a.x:
+				# previous point above and next right
+				$body.set_cellv(s_c, join, true, false, false)
 	# tail
 	var s_tail = sections[0];
 	var s_tail_1 = sections[1]
