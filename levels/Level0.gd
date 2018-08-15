@@ -13,6 +13,8 @@ func _unhandled_input(event):
 			get_tree().change_scene("res://ui/MainScreen.tscn")
 		if event.pressed and event.scancode == KEY_R:
 			get_tree().reload_current_scene()
+		if event.pressed and event.scancode == KEY_F:
+			OS.set_window_fullscreen(not OS.window_fullscreen)
 
 func _on_Worm_win():
 	if next_level==0:
