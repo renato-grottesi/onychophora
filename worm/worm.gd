@@ -185,6 +185,10 @@ func fall():
 		for s in range(0, sections.size()):
 			$"body".set_cellv(sections[s], -1)
 			sections[s] = sections[s] + Vector2(0, 1)
+	if $Resources.get_cellv(sections.back()) == mold:
+		$Resources.set_cellv(sections.back(), -1)
+		if sections.size() >= 3:
+			sections.pop_front();
 	draw()
 
 func on_ground():
@@ -197,8 +201,9 @@ func on_ground():
 
 func can_move_to(p):
 	for s in sections:
-		if p == s:
-			return false
+		if s != sections[0]:
+			if p == s:
+				return false
 	for c in $Map.get_used_cells_by_id(rock):
 		if p == c:
 			return false
