@@ -16,6 +16,9 @@ var mold
 var stable = 128
 
 var dead = false
+var worm_falling = 0.0
+var unstable_tiles = []
+var soil_falling = 0.0
 
 func _ready():
 	tail = $Map.tile_set.find_tile_by_name("tail")
@@ -42,10 +45,29 @@ func set_sections_from_head(h):
 		sections.append(h+Vector2(s, 0))
 	fall()
 
+func _process(delta):
+	if soil_falling>0:
+		soil_falling-=delta
+		$falling.position.y+=delta*16.0
+		if soil_falling<0:
+			soil_falling=0
+			$falling.position.y=0
+			$falling.clear()
+			for c in unstable_tiles: $Map.set_cellv(c+Vector2(0, 1), soil)
+			unstable_tiles.clear()
+			fall_soil()
+	elif worm_falling>0:
+		worm_falling-=delta;
+		$body.position.y+=delta*16.0
+		if worm_falling<0:
+			worm_falling=0
+			$body.position.y=0
+			fall()
+
 func _unhandled_input(event):
 	if dead:
 		return
-	if event is InputEventKey:
+	if event is InputEventKey and (worm_falling+soil_falling)==0:
 		if event.pressed:
 			var arrow = Vector2(0, 0)
 			if event.scancode == KEY_LEFT or event.scancode == KEY_A:
@@ -70,7 +92,8 @@ func _unhandled_input(event):
 							sections.pop_front();
 					sections.push_back(new_head)
 					eat_soil(new_head)
-				for i in range(1, 16): fall()
+				fall()
+				draw()
 				if not check_win():
 					check_buried()
 					check_stuck()
@@ -102,33 +125,33 @@ func check_win():
 func eat_soil(p):
 	if $Map.get_cellv(p) == soil:
 		$Map.set_cellv(p, -1)
-	var unstable_tile_count = 1
-	while unstable_tile_count > 0:
-		# mark all soil cells as stable
-		var soil_count = $Map.get_used_cells_by_id(soil).size()
-		for c in $Map.get_used_cells_by_id(rock):
+	fall_soil()
+
+func fall_soil():
+	# mark all soil cells as stable
+	var soil_count = $Map.get_used_cells_by_id(soil).size()
+	for c in $Map.get_used_cells_by_id(rock):
+		if $Map.get_cellv(c+Vector2(1, 0))==soil: $Map.set_cellv(c+Vector2(1, 0), stable)
+		if $Map.get_cellv(c+Vector2(-1, 0))==soil: $Map.set_cellv(c+Vector2(-1, 0), stable)
+		if $Map.get_cellv(c+Vector2(0, 1))==soil: $Map.set_cellv(c+Vector2(0, 1), stable)
+		if $Map.get_cellv(c+Vector2(0, -1))==soil: $Map.set_cellv(c+Vector2(0, -1), stable)
+	var new_soil_count = $Map.get_used_cells_by_id(soil).size()
+	while soil_count != new_soil_count:
+		soil_count = new_soil_count
+		for c in $Map.get_used_cells_by_id(stable):
 			if $Map.get_cellv(c+Vector2(1, 0))==soil: $Map.set_cellv(c+Vector2(1, 0), stable)
 			if $Map.get_cellv(c+Vector2(-1, 0))==soil: $Map.set_cellv(c+Vector2(-1, 0), stable)
 			if $Map.get_cellv(c+Vector2(0, 1))==soil: $Map.set_cellv(c+Vector2(0, 1), stable)
 			if $Map.get_cellv(c+Vector2(0, -1))==soil: $Map.set_cellv(c+Vector2(0, -1), stable)
-		var new_soil_count = $Map.get_used_cells_by_id(soil).size()
-		while soil_count != new_soil_count:
-			soil_count = new_soil_count
-			for c in $Map.get_used_cells_by_id(stable):
-				if $Map.get_cellv(c+Vector2(1, 0))==soil: $Map.set_cellv(c+Vector2(1, 0), stable)
-				if $Map.get_cellv(c+Vector2(-1, 0))==soil: $Map.set_cellv(c+Vector2(-1, 0), stable)
-				if $Map.get_cellv(c+Vector2(0, 1))==soil: $Map.set_cellv(c+Vector2(0, 1), stable)
-				if $Map.get_cellv(c+Vector2(0, -1))==soil: $Map.set_cellv(c+Vector2(0, -1), stable)
-			new_soil_count = $Map.get_used_cells_by_id(soil).size()
-		# now let the unstable fall
-		var unstable_tiles = []
-		for c in $Map.get_used_cells_by_id(soil): unstable_tiles.append(c)
-		unstable_tile_count = unstable_tiles.size()
-		for c in $Map.get_used_cells_by_id(soil): $Map.set_cellv(c, -1)
-		for c in unstable_tiles: $Map.set_cellv(c+Vector2(0, 1), soil)
-		#finally mark all stable back as soil
-		for c in $Map.get_used_cells_by_id(stable):
-			$Map.set_cellv(c, soil)
+		new_soil_count = $Map.get_used_cells_by_id(soil).size()
+	# now let the unstable fall
+	for c in $Map.get_used_cells_by_id(soil): unstable_tiles.append(c)
+	if unstable_tiles.size() > 0: soil_falling = 0.25
+	for c in $Map.get_used_cells_by_id(soil): $Map.set_cellv(c, -1)
+	for c in unstable_tiles: $falling.set_cellv(c, soil)
+	#finally mark all stable back as soil
+	for c in $Map.get_used_cells_by_id(stable):
+		$Map.set_cellv(c, soil)
 
 enum dir {L=0, R=1, U=2, D=3}
 
@@ -183,8 +206,10 @@ func draw():
 func fall():
 	if not on_ground():
 		for s in range(0, sections.size()):
-			$"body".set_cellv(sections[s], -1)
 			sections[s] = sections[s] + Vector2(0, 1)
+		$body.clear()
+		worm_falling = 0.25
+		$body.position.y-=4
 	if $Resources.get_cellv(sections.back()) == mold:
 		$Resources.set_cellv(sections.back(), -1)
 		if sections.size() >= 3:
