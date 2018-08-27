@@ -30,8 +30,6 @@ func _ready():
 	door = $Map.tile_set.find_tile_by_name("door")
 	food = $Map.tile_set.find_tile_by_name("food")
 	mold = $Map.tile_set.find_tile_by_name("mold")
-	
-	for i in range(1, 16): fall()
 
 func set_sections(new_sections):
 	sections.clear()
@@ -63,6 +61,9 @@ func _process(delta):
 			worm_falling=0
 			$body.position.y=0
 			fall()
+	elif not check_win():
+		check_buried()
+		check_stuck()
 
 func _unhandled_input(event):
 	if dead:
@@ -94,9 +95,6 @@ func _unhandled_input(event):
 					eat_soil(new_head)
 				fall()
 				draw()
-				if not check_win():
-					check_buried()
-					check_stuck()
 
 func check_stuck():
 	var h = sections.back()
