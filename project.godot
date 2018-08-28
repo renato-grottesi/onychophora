@@ -15,6 +15,10 @@ run/main_scene="res://ui/MainScreen.tscn"
 boot_splash/fullsize=false
 config/icon="res://icon.png"
 
+[autoload]
+
+global="*res://global.gd"
+
 [debug]
 
 settings/fps/force_fps=12
