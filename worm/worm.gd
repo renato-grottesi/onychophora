@@ -49,6 +49,7 @@ func _process(delta):
 		$falling.position.y+=delta*16.0
 		if soil_falling<0:
 			soil_falling=0
+			$sfx_soil_fall.play()
 			$falling.position.y=0
 			$falling.clear()
 			for c in unstable_tiles: $Map.set_cellv(c+Vector2(0, 1), soil)
@@ -59,6 +60,7 @@ func _process(delta):
 		$body.position.y+=delta*16.0
 		if worm_falling<0:
 			worm_falling=0
+			$sfx_worm_fall.play()
 			$body.position.y=0
 			fall()
 	elif not check_win():
@@ -84,15 +86,19 @@ func _unhandled_input(event):
 				if can_move_to(new_head):
 					$"body".set_cellv(sections.front(), -1)
 					if $Resources.get_cellv(new_head) == food:
+						$sfx_longer.play()
 						$Resources.set_cellv(new_head, -1)
 					else:
 						sections.pop_front();
 					if $Resources.get_cellv(new_head) == mold:
+						$sfx_shorter.play()
 						$Resources.set_cellv(new_head, -1)
 						if sections.size() >= 3:
 							sections.pop_front();
 					sections.push_back(new_head)
 					eat_soil(new_head)
+					if (not($sfx_eat_soil.playing)) and (not($sfx_shorter.playing) and (not($sfx_longer.playing))):
+						$sfx_move.play()
 				fall()
 				draw()
 
@@ -122,6 +128,7 @@ func check_win():
 
 func eat_soil(p):
 	if $Map.get_cellv(p) == soil:
+		$sfx_eat_soil.play()
 		$Map.set_cellv(p, -1)
 	fall_soil()
 
@@ -209,6 +216,7 @@ func fall():
 		worm_falling = 0.25
 		$body.position.y-=4
 	if $Resources.get_cellv(sections.back()) == mold:
+		$sfx_shorter.play()
 		$Resources.set_cellv(sections.back(), -1)
 		if sections.size() >= 3:
 			sections.pop_front();

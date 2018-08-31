@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/longer.wav-db10943b1b3ad72d707ca4e8fe91554d.sample"
+
+[deps]
+
+source_file="res://sounds/longer.wav"
+dest_files=[ "res://.import/longer.wav-db10943b1b3ad72d707ca4e8fe91554d.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=true
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=1

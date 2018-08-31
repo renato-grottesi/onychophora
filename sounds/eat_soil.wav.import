@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/eat_soil.wav-6bef908ce1e108cddc2f41b9765760b5.sample"
+
+[deps]
+
+source_file="res://sounds/eat_soil.wav"
+dest_files=[ "res://.import/eat_soil.wav-6bef908ce1e108cddc2f41b9765760b5.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=true
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=1

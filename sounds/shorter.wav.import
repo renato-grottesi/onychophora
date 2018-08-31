@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shorter.wav-2176e984c11b71581dde1c44fc539a4e.sample"
+
+[deps]
+
+source_file="res://sounds/shorter.wav"
+dest_files=[ "res://.import/shorter.wav-2176e984c11b71581dde1c44fc539a4e.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=true
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=1

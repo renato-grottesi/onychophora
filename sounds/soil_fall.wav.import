@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/soil_fall.wav-f1169cbf39cbaac85c0ab408e015a93b.sample"
+
+[deps]
+
+source_file="res://sounds/soil_fall.wav"
+dest_files=[ "res://.import/soil_fall.wav-f1169cbf39cbaac85c0ab408e015a93b.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=true
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=1
