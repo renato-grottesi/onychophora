@@ -1,11 +1,14 @@
 extends Node
 
+var music_player
+var music = preload("res://sounds/onychophora.ogg")
+
 func _ready():
-	var music_file = "res://sounds/onychophora.ogg"
-	var stream = AudioStream.new()
-	var music_player = AudioStreamPlayer.new()
-	if File.new().file_exists(music_file):
-		var music = load(music_file)
-		music_player.stream = music
+	music_player = AudioStreamPlayer2D.new()
+	music_player.stream = music
+	music_player.play()
+	add_child(music_player)
+
+func _process(delta):
+	if not(music_player.playing):
 		music_player.play()
-		add_child(music_player)
